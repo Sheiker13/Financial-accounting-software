@@ -1,7 +1,7 @@
-import datetime
+import logging
 
-LOG_FILE = "data/logs.txt"
+logging.basicConfig(filename='data/system.log', level=logging.INFO,
+                    format='%(asctime)s | %(levelname)s | %(message)s')
 
-def log_operation(operation_type, username, description):
-    with open(LOG_FILE, 'a') as f:
-        f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} | {operation_type} | {username} | {description}\n")
+def log_event(message):
+    logging.info(message)
