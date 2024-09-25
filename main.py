@@ -34,9 +34,10 @@ def main():
                         currency = input("Валюта счета: ")
                         Account.create_account(username, name, currency)
                     elif option == '2':
-                        Account.get_balance(username)
+                        balance = Account.get_balance(username)
+                        print(f"Ваш общий баланс: {balance}")
                     elif option == '3':
-                        account_name = input("Введите название счета: ")
+                        account_name = input("Название счета: ")
                         amount = float(input("Введите сумму: "))
                         transaction_type = input("Тип транзакции (income/expense): ")
                         Transaction.add_transaction(username, account_name, amount, transaction_type)

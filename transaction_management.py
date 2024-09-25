@@ -1,5 +1,6 @@
 from datetime import datetime
-from utils.file_handler import save_data, load_data
+from utils.file_handler import load_data, save_data
+
 
 class Transaction:
     def __init__(self, account, amount, transaction_type):
@@ -15,8 +16,10 @@ class Transaction:
             raise ValueError("Счет не найден.")
         if transaction_type == "expense" and accounts[account_name]['balance'] < amount:
             raise ValueError("Недостаточно средств.")
+
         accounts[account_name]['balance'] += amount if transaction_type == "income" else -amount
         transactions = load_data(f'data/transactions/{user}_transactions.json')
+
         transaction = Transaction(account_name, amount, transaction_type)
         transactions.append({
             'account': account_name,
@@ -24,6 +27,7 @@ class Transaction:
             'type': transaction_type,
             'date': transaction.date
         })
+
         save_data(f'data/accounts/{user}_accounts.json', accounts)
         save_data(f'data/transactions/{user}_transactions.json', transactions)
-        print(f"Транзакция {transaction_type} на сумму {amount} для счета {account_name} добавлена.")
+        return transaction
